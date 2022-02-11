@@ -12,6 +12,7 @@
   "license": "ISC",
   "dependencies": {
     "express": "^4.17.2",
+    "mysql": "^2.18.1",
     "truffle-contract": "^4.0.31",
     "web3": "^1.7.0"
   },

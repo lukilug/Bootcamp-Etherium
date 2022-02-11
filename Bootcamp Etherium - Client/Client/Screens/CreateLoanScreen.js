@@ -9,13 +9,21 @@ export default function CreateLoanScreen() {
 
     })
     const dateNow = new Date().toString()
+    // const inputErrors = false
 
     function handleChange(name, value) {
         console.log(name + " " + value)
         setLoan({...Loan,[name]:value})
+
+        // // Comprobación de errores
+        // let reg = /^\w+([\.-]?\w+)*@\w+([\.-]?\w+)*(\.\w{2,3})+$/ ;
+        // if (reg.test(value)) {
+        //     console.log("Hola")
+        //     inputErrors = true 
+        // }
     }
 
-    async function CreateLoanClick() {
+    async function createLoanClick() {
         const res = await fetch ('http://192.168.1.157:8080/createLoan/2',{
             method:"post", 
             headers: {"Content-Type":"application/json"},
@@ -30,24 +38,41 @@ export default function CreateLoanScreen() {
         console.log (response)
     }
 
-    function handleClick() {
-        console.log(Loan)
+    // function handleClick() {
+    //     console.log(Loan)
         
-        CreateLoanClick()
+    //    createLoanClick()
         
-    }
+    // }
+
+    // function inputError(input) {
+    //     return <Text style={styles.error}>Error en el ingreso del {input}</Text>
+    // }
 
     return (
     <View>
-      <Text>Loan Date</Text>
-      <Text>{dateNow}</Text>
+      <View style={styles.inLineTextLabel}>
+        <Text>Loan Date</Text>
+        <Text>{dateNow}</Text>
+      </View>
       <Text>Loan Description</Text>
-      <TextInput placeholder='Short description of the loan' onChangeText={(text)=>handleChange("description",text)}  />  
+      <TextInput placeholder='Short description of the loan' onChangeText={(text)=>handleChange("description",text)}  /> 
+      {/* {inputErrors && inputError("description")}  */}
       <Text>Amount</Text>
       <TextInput placeholder='Loan Amount' onChangeText={(text)=>handleChange("amount",text)}  />  
-      <Button title="Create" onPress={handleClick}/>
+      {/* {inputErrors && inputError("amount")} */}
+      <Button title="Create" onPress={createLoanClick}/>
     </View>
   )
 }
 
-const styles = StyleSheet.create({})
+const styles = StyleSheet.create({
+    inLineTextLabel: {
+        flexDirection:"row"
+
+    },
+    error: {
+        color: "red"
+    }
+
+})
